@@ -11,13 +11,6 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-def detail(request, question_id):
-    try:
-        question = Question.objects.get(pk=question_id)
-    except Question.DoesNotExist:
-        raise Http404("Question does not exist")
-    return render(request, "polls/detail.html", {"question": question})
-
 class IndexView(generic.ListView):
     template_name = "polls/index.html"
     context_object_name = "latest_question_list"
@@ -36,7 +29,3 @@ class ResultsView(generic.DetailView):
 
 def vote(request, question_id):
     return HttpResponse("You're voting on question %s." % question_id)
-
-def detail(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
-    return render(request, "polls/detail.html", {"question": question})
